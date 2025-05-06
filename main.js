@@ -75,38 +75,16 @@ function createTarget(number) {
   const target = document.createElement('div');
   target.className = 'target';
   target.textContent = number;
-  
-  // Style
-  // Object.assign(target.style, {
-  //   position: 'absolute',
-  //   width: '40px',
-  //   height: '40px',
-  //   borderRadius: '50%',
-  //   backgroundColor: 'red',
-  //   color: 'white',
-  //   fontWeight: 'bold',
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   cursor: 'not-allowed',
-  //   transition: 'transform 0.2s',
-  //   userSelect: 'none'  // Prevent text selection
-  // });
-  
-  // Position randomly
   positionTarget(target);
   
-  // Handle right-click (contextmenu event)
+  //right-click (contextmenu event)
   target.addEventListener('contextmenu', function(e) {
-    // Always prevent the default context menu
     e.preventDefault();
     e.stopPropagation();
-    
-    console.log(`Right-clicked on target ${this.textContent}`); // Debug
+    console.log(`Right-clicked on target ${this.textContent}`);
     
     const targetNumber = parseInt(this.textContent);
     if (targetNumber === currentSequenceProgress + 1) {
-      // Process the successful target click
       handleTargetClick(this);
     }
     
@@ -116,22 +94,15 @@ function createTarget(number) {
   return target;
 }
 
-// Handle a successful target click
 function handleTargetClick(targetElement) {
-  // Animation
-  // targetElement.style.transform = 'scale(1.5)';
-  // setTimeout(() => targetElement.style.transform = 'scale(1)', 150);
-  
+
   // Increment progress
   currentSequenceProgress++;
   updateScoreboard();
   
-  // Remove this target
   if (targetElement.parentNode === gameArea) {
     gameArea.removeChild(targetElement);
   }
-  
-  // Check for sequence completion
   if (currentSequenceProgress >= targets.length) {
     // Sequence complete
     totalScore++;
