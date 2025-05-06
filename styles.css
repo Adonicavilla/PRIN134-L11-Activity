@@ -50,9 +50,6 @@ body {
     overflow: hidden;
 }
 
-
-
-
 .target {
     position: absolute;
     width: 50px;
@@ -88,32 +85,4 @@ body {
     font-size: 14px;
     color: #666;
     text-align: center;
-}
-.target.active {
-  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.7);
-  animation: pulse 1.5s infinite;
-  /* background-color: #ff9900 !important; */
-}
-/* 
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-} */
-
-button {
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-left: 5px;
-}
-
-button:hover {
-  background-color: #e0e0e0;
-}
-
-input {
-  width: 60px;
-  margin: 5px;
 }

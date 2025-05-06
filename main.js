@@ -192,7 +192,7 @@ function showMessage(text, type) {
 
 // Update scoreboard
 function updateScoreboard() {
-  scoreBoard.textContent = `Total Score: ${totalScore} | `;
+  scoreBoard.textContent = `Total Score: ${totalScore} `;
 }
 
 // Clear all targets
