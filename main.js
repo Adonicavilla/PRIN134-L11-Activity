@@ -104,11 +104,10 @@ function handleTargetClick(targetElement) {
     gameArea.removeChild(targetElement);
   }
   if (currentSequenceProgress >= targets.length) {
-    // Sequence complete
     totalScore++;
     showMessage("Sequence Complete! +1 Point", "success");
     
-    // Start new sequence after delay
+    // Start new sequence 
     setTimeout(() => {
       const num = parseInt(document.querySelector('input').value) || 3;
       setupTargets(num);
@@ -120,7 +119,7 @@ function handleTargetClick(targetElement) {
   }
 }
 
-// Position target randomly
+// Position randomly
 function positionTarget(target) {
   const size = 40;
   const rect = gameArea.getBoundingClientRect();
