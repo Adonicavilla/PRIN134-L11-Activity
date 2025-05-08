@@ -19,7 +19,10 @@ function init() {
   setupBtn.onclick = () => {
     const num = parseInt(inputBox.value);
     if (num > 0) {
-      totalScore = 0; 
+      totalScore = 0;
+      currentSequenceProgress = 0;
+      setupTargets(num);
+      updateScoreboard();
     }
   };
   
@@ -28,11 +31,9 @@ function init() {
   controlsDiv.appendChild(setupBtn);
   gameArea.parentNode.insertBefore(controlsDiv, gameArea);
   
-  // Add styles
+  // styles
   document.head.appendChild(createStyles());
-  
-  // Prevent default context menu on the entire game area
-  gameArea.addEventListener('contextmenu', function(e) {
+    gameArea.addEventListener('contextmenu', function(e) {
     e.preventDefault();
     return false;
   }, false);
@@ -40,7 +41,7 @@ function init() {
   // Start with default targets
   setupTargets(3);
   
-  // Add keyboard reset
+  //keyboard reset
   document.addEventListener('keydown', e => {
     if (e.ctrlKey && (e.key === 'h' || e.key === 'H')) {
       e.preventDefault();
@@ -76,29 +77,12 @@ function createTarget(number) {
   target.className = 'target';
   target.textContent = number;
   
-  // Style
-  Object.assign(target.style, {
-    position: 'absolute',
-    width: '40px',
-    height: '40px',
-    borderRadius: '50%',
-    backgroundColor: 'red',
-    color: 'white',
-    fontWeight: 'bold',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    cursor: 'not-allowed',
-    transition: 'transform 0.2s',
-    userSelect: 'none'  // Prevent text selection
-  });
   
   // Position randomly
   positionTarget(target);
   
   // Handle right-click (contextmenu event)
   target.addEventListener('contextmenu', function(e) {
-    // Always prevent the default context menu
     e.preventDefault();
     e.stopPropagation();
     
@@ -133,15 +117,13 @@ function handleTargetClick(targetElement) {
   
   // Check for sequence completion
   if (currentSequenceProgress >= targets.length) {
-    // Sequence complete
     totalScore++;
-    showMessage("Sequence Complete! +1 Point", "success");
-    
+  
     // Start new sequence after delay
     setTimeout(() => {
       const num = parseInt(document.querySelector('input').value) || 3;
       setupTargets(num);
-    }, 1000);
+    }, 50);
   } else {
     // Activate next target
     targets[currentSequenceProgress].classList.add('active');
@@ -161,33 +143,6 @@ function positionTarget(target) {
   
   target.style.left = `${x}px`;
   target.style.top = `${y}px`;
-}
-
-// Show message
-function showMessage(text, type) {
-  const msg = document.createElement('div');
-  msg.textContent = text;
-  
-  Object.assign(msg.style, {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    padding: '15px 25px',
-    borderRadius: '5px',
-    fontSize: '18px',
-    fontWeight: 'bold',
-    zIndex: '100',
-    color: 'white',
-    backgroundColor: type === 'success' ? 'rgba(40, 167, 69, 0.9)' : 'rgba(220, 53, 69, 0.9)'
-  });
-  
-  gameArea.appendChild(msg);
-  setTimeout(() => {
-    if (msg.parentNode === gameArea) {
-      gameArea.removeChild(msg);
-    }
-  }, 1000);
 }
 
 // Update scoreboard
@@ -214,7 +169,7 @@ function resetGame() {
   setupTargets(num);
 }
 
-// Create CSS styles
+//CSS styles
 function createStyles() {
   const style = document.createElement('style');
   style.textContent = `
